@@ -1,0 +1,21 @@
+﻿<Window x:Class="$safeprojectname$.Windows.Help.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:help="clr-namespace:$safeprojectname$.Windows.Help"
+        mc:Ignorable="d"
+        Title="About this application" 
+        Height="450" Width="800"
+        Style="{DynamicResource CustomToolWindowStyle}">
+    <Window.DataContext>
+        <help:HelpViewModel/>
+    </Window.DataContext>
+    <StackPanel Margin="20">
+        <TextBlock Text="{Binding ApplicationName, UpdateSourceTrigger=PropertyChanged}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Separator Margin="0 10"/>
+        <TextBlock Text="{Binding AuthorsDescription, UpdateSourceTrigger=PropertyChanged}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+        <Separator Margin="0 10"/>
+        <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,54 @@
+﻿<Window x:Class="$safeprojectname$.Windows.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:$safeprojectname$.Windows.Main"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Width="1280"
+        Height="720" 
+        Style="{DynamicResource CustomWindowStyle}">
+    <Window.DataContext>
+        <main:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Theme" DataContext="{Binding Themes, Mode=OneTime}">
+                <MenuItem.Resources>
+                    <DropShadowBitmapEffect x:Key="Shadow" ShadowDepth="3" Softness="0.3" Opacity="0.6"/>
+                </MenuItem.Resources>
+                <MenuItem Command="{Binding SetThemeCommand}" CommandParameter="nl" Header="Light" Template="{DynamicResource SingleDropDownMenuItem}">
+                    <MenuItem.Icon>
+                        <Border Background="Snow" BorderBrush="Gray" BorderThickness="2" CornerRadius="2" BitmapEffect="{StaticResource Shadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding SetThemeCommand}" CommandParameter="nd" Header="Dark" Template="{DynamicResource SingleDropDownMenuItem}">
+                    <MenuItem.Icon>
+                        <Border Background="#FF303030" BorderBrush="#FF606060" BorderThickness="2" CornerRadius="2" BitmapEffect="{StaticResource Shadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding SetThemeCommand}" CommandParameter="cl" Header="Colourful Light" Template="{DynamicResource SingleDropDownMenuItem}">
+                    <MenuItem.Icon>
+                        <Border Background="Snow" BorderBrush="#FF00AEF0" BorderThickness="2" CornerRadius="2" BitmapEffect="{StaticResource Shadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding SetThemeCommand}" CommandParameter="cd" Header="Colourful Dark" Template="{DynamicResource SingleDropDownMenuItem}">
+                    <MenuItem.Icon>
+                        <Border Background="#FF303030" BorderBrush="#FF00AEF0" BorderThickness="2" CornerRadius="2" BitmapEffect="{StaticResource Shadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help" DataContext="{Binding Help, Mode=OneTime}">
+                <MenuItem Header="Show Help" Command="{Binding ShowHelpCommand, Mode=OneTime}" Template="{DynamicResource SingleDropDownMenuItem}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="?" HorizontalAlignment="Center" FontSize="12"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="0,18,0,0">
+            
+        </Grid>
+    </Grid>
+</Window>
