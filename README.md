@@ -1,6 +1,6 @@
 # TheRFrameworkWPFTemplate
-A simple project (exportable as a template) for setting up MVVM projects, using my BaseViewModel/Command/etc classes, as well as a help window, window manager, theme manager, etc
-
+A simple project (exportable as a template) for setting up MVVM projects, using my BaseViewModel/Command/etc classes, as well as a help window, window manager, theme manager, etc.
+This is a .NET Framework 4.6.1 template btw.
 # How to export as a template
 Idk if i can upload templates to github, they might have some weird dependencies so it's better if you export it yourself.
 
