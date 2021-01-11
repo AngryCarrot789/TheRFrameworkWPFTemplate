@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using $safeprojectname$.Windows.Logger;
 
 namespace TheRFramework
 {
@@ -23,6 +24,7 @@ namespace TheRFramework
         private static void ChangeTheme(Uri uri)
         {
             ThemeDictionary = new ResourceDictionary() { Source = uri };
+            ApplicationLogger.Log("Theme", "Successful!");
         }
         public static void SetTheme(ThemeTypes theme)
         {
@@ -30,10 +32,22 @@ namespace TheRFramework
             CurrentTheme = theme;
             switch (theme)
             {
-                case ThemeTypes.Dark: themeName = "DarkTheme"; break;
-                case ThemeTypes.Light: themeName = "LightTheme"; break;
-                case ThemeTypes.ColourfulDark: themeName = "ColourfulDarkTheme"; break;
-                case ThemeTypes.ColourfulLight: themeName = "ColourfulLightTheme"; break;
+                case ThemeTypes.Dark: 
+                    themeName = "DarkTheme";
+                    ApplicationLogger.Log("Theme", "Changing the theme to the dark theme");
+                    break;
+                case ThemeTypes.Light: 
+                    themeName = "LightTheme"; 
+                    ApplicationLogger.Log("Theme", "Changing the theme to the light theme");
+                    break;
+                case ThemeTypes.ColourfulDark: 
+                    themeName = "ColourfulDarkTheme"; 
+                    ApplicationLogger.Log("Theme", "Changing the theme to the colourful dark theme");
+                    break;
+                case ThemeTypes.ColourfulLight: 
+                    themeName = "ColourfulLightTheme"; 
+                    ApplicationLogger.Log("Theme", "Changing the theme to the colourful light theme");
+                    break;
             }
 
             try

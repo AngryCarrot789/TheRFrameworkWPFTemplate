@@ -6,6 +6,6 @@
     /// <typeparam name="ViewModel">The ViewModel class that implements <see cref="BaseViewModel"/></typeparam>
     public interface BaseView<ViewModel> where ViewModel : BaseViewModel
     {
-        ViewModel Model { get; }
+        ViewModel Model { get; set; }
     }
 }

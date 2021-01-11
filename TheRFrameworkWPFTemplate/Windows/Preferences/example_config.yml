@@ -1,0 +1,37 @@
+﻿# THIS CONFIG FILE WONT LOAD BY DEFAULT IT'S JUST AN EXAMPLE lol
+# The fields should be used as the description of the property/setting.
+# just make sure not to use more than 2 colons because thats how the
+# field and value are separated. the YAML parser isn't very clever; 
+# its fairly basic lol
+# btw all these comments will be removed once you save the
+# config because its a bit tricky saving them.
+# fields look like this: then the value after
+sample string field: the value here lol
+another, @field@__: s()me w£irDleTt3rs
+# bools look like this:
+some bool value: True
+another bool: false
+3rd bool: False
+
+# Lists must look like this: with the list name at the top with the :
+# and the values with a - and then the name. you can compress the
+# - and stuff down if you want. could be:
+#-som, not - som if you see what i mean.
+a list here:
+  - some thing here1 
+  - some thing here 2
+  - some thing here 3
+  - some thing her3e
+  - some thing here 4
+  - some thing here5
+  - some thing here 6
+# you dont need to add a space here but you can if you want to
+# make it look nicer
+anotherLIST:
+  - s21kjf
+  - s21kjf
+  - s2dsjgnf
+  - s21kjf
+  - lol lol
+  - lllllll
+  - sf

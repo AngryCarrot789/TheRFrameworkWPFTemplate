@@ -1,0 +1,49 @@
+﻿<Window x:Class="$safeprojectname$.Windows.Logger.LoggerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:$safeprojectname$.Windows.Logger"
+        mc:Ignorable="d"
+        Title="Logger" 
+        Height="450" 
+        Width="800"
+        Style="{DynamicResource CustomToolWindowStyle}">
+    <Window.DataContext>
+        <local:LoggerViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <GroupBox Margin="10,10,200,10">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Logged Items"/>
+                    <Button Command="{Binding ClearItemsCommand, Mode=OneTime}" VerticalAlignment="Center" Content="Clear Items" Margin="5 0 0 0" Width="120" Height="24"/>
+                </StackPanel>
+            </GroupBox.Header>
+            <ListBox ItemsSource="{Binding Logged, Mode=OneTime}"
+                     SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.CanContentScroll="False">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:LoggedItem DataContext="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Header="Selected Log" DataContext="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" Margin="597,10,10,10">
+            <StackPanel>
+                <TextBlock Text="Time of log/exception" Padding="5"/>
+                <TextBlock Text="{Binding Time, Mode=OneTime}" Padding="5 2 5 5"/>
+                <Separator/>
+                <TextBlock Padding="5" Text="Header of Log/Exception"/>
+                <TextBlock Text="{Binding LogHeader, Mode=OneTime}" Padding="5 2 5 5"/>
+                <TextBlock Text="Description of Log/Exception" Padding="5"/>
+                <TextBlock Text="{Binding LogDescription, Mode=OneTime}" Padding="5 2 5 5" TextWrapping="Wrap"/>
+                <Separator/>
+                <TextBlock Text="Exception Message" Padding="5"/>
+                <TextBlock Text="{Binding RawException.Message, Mode=OneTime}" Padding="5 2 5 5"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

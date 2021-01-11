@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using TheRFramework.Utilities;
+using $safeprojectname$.Windows.Preferences;
 
 namespace $safeprojectname$.Windows.Main
 {
@@ -8,7 +11,7 @@ namespace $safeprojectname$.Windows.Main
     /// </summary>
     public partial class MainWindow : Window, BaseView<MainViewModel>
     {
-        public MainViewModel Model => DataContext as MainViewModel;
+        public MainViewModel Model { get => DataContext as MainViewModel; set => DataContext = value; }
 
         public MainWindow()
         {

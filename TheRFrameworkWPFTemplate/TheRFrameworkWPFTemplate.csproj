@@ -57,7 +57,38 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utilities\BaseView.cs" />
+    <Compile Include="Utilities\String\StringHelper.cs" />
     <Compile Include="Windows\Help\HelpViewModel.cs" />
+    <Compile Include="Windows\Logger\LoggedItem.xaml.cs">
+      <DependentUpon>LoggedItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Logger\ApplicationLogger.cs" />
+    <Compile Include="Windows\Logger\LoggerViewModel.cs" />
+    <Compile Include="Windows\Logger\LoggedItemViewModel.cs" />
+    <Compile Include="Windows\Logger\LoggerWindow.xaml.cs">
+      <DependentUpon>LoggerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\PreferencesViewModel.cs" />
+    <Compile Include="Windows\Preferences\PreferencesWindow.xaml.cs">
+      <DependentUpon>PreferencesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\SettingsControls\BooleanSetting.xaml.cs">
+      <DependentUpon>BooleanSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\SettingsControls\BooleanSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\ListSetting.xaml.cs">
+      <DependentUpon>ListSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\SettingsControls\ListSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\StringSetting.xaml.cs">
+      <DependentUpon>StringSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\SettingsControls\StringSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\SubListSetting.xaml.cs">
+      <DependentUpon>SubListSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Preferences\SettingsControls\SubListSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\TCSConfig.cs" />
     <Compile Include="Windows\ThemesViewModel.cs" />
     <Compile Include="Windows\WindowManager.cs" />
     <Page Include="Themes\ColourfulDarkTheme.xaml">
@@ -77,6 +108,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Help\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Logger\LoggedItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Logger\LoggerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,6 +151,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\Preferences\PreferencesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Preferences\SettingsControls\BooleanSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Preferences\SettingsControls\ListSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Preferences\SettingsControls\StringSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Preferences\SettingsControls\SubListSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -135,9 +194,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Windows\Preferences\example_config.yml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

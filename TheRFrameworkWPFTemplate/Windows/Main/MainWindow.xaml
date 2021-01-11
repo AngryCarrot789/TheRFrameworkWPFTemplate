@@ -13,7 +13,10 @@
         <main:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Menu VerticalAlignment="Top">
+        <Menu VerticalAlignment="Top" Background="{DynamicResource ContainerBackground}">
+            <MenuItem Header="File">
+                <MenuItem Command="{Binding Preferences.ShowViewCommand, Mode=OneTime}" Header="Preferences" Template="{DynamicResource SingleDropDownMenuItem}"/>
+            </MenuItem>
             <MenuItem Header="Theme" DataContext="{Binding Themes, Mode=OneTime}">
                 <MenuItem.Resources>
                     <DropShadowBitmapEffect x:Key="Shadow" ShadowDepth="3" Softness="0.3" Opacity="0.6"/>
@@ -39,12 +42,13 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Help" DataContext="{Binding Help, Mode=OneTime}">
-                <MenuItem Header="Show Help" Command="{Binding ShowHelpCommand, Mode=OneTime}" Template="{DynamicResource SingleDropDownMenuItem}">
+            <MenuItem Header="Help">
+                <MenuItem Header="Show Help" Command="{Binding Help.ShowHelpCommand, Mode=OneTime}" Template="{DynamicResource SingleDropDownMenuItem}">
                     <MenuItem.Icon>
                         <TextBlock Text="?" HorizontalAlignment="Center" FontSize="12"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Show Logger" Command="{Binding Logs.ShowViewCommand, Mode=OneTime}" Template="{DynamicResource SingleDropDownMenuItem}"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,18,0,0">

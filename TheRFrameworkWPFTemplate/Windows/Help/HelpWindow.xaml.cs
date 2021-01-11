@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 using TheRFramework.Utilities;
 
-namespace TheRFrameworkWPFTemplate.Windows.Help
+namespace $safeprojectname$.Windows.Help
 {
     /// <summary>
     /// Interaction logic for HelpWindow.xaml
     /// </summary>
     public partial class HelpWindow : Window, BaseView<HelpViewModel>
     {
-        public HelpViewModel Model => DataContext as HelpViewModel;
+        public HelpViewModel Model  { get => DataContext as HelpViewModel; set => DataContext = value; }
 
         public HelpWindow()
         {

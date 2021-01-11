@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TheRFramework.Utilities;
 using $safeprojectname$.Windows.Help;
+using $safeprojectname$.Windows.Logger;
+using $safeprojectname$.Windows.Preferences;
 
 namespace $safeprojectname$.Windows.Main
 {
@@ -12,11 +14,17 @@ namespace $safeprojectname$.Windows.Main
     {
         public HelpViewModel Help { get; set; }
         public ThemesViewModel Themes { get; set; }
+        public PreferencesViewModel Preferences { get; set; }
+        public LoggerViewModel Logs { get; set; }
+
+        // $safeprojectname$
 
         public MainViewModel()
         {
             Help = new HelpViewModel();
             Themes = new ThemesViewModel();
+            Preferences = new PreferencesViewModel();
+            Logs = new LoggerViewModel();
         }
     }
 }
