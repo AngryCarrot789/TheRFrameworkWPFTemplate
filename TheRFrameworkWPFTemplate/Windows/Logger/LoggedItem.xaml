@@ -8,6 +8,7 @@
              d:DesignHeight="20" d:DesignWidth="400">
     <DockPanel>
         <TextBlock Text="{Binding Time, Mode=OneTime, StringFormat={}T}" VerticalAlignment="Center" Padding="2 0" HorizontalAlignment="Left"/>
+        <Separator Style="{DynamicResource VerticalSeparator}" Margin="2"/>
         <TextBlock Text="{Binding LogHeader, Mode=OneTime}" VerticalAlignment="Center" Padding="4 0 1 0" HorizontalAlignment="Left"/>
         <TextBlock Text=">" VerticalAlignment="Center" Padding="0 0" HorizontalAlignment="Left"/>
         <TextBlock Text="{Binding LogDescription, Mode=OneTime}" VerticalAlignment="Center" Padding="3 0 2 0" HorizontalAlignment="Left"/>

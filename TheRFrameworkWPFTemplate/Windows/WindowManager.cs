@@ -20,19 +20,30 @@ namespace $safeprojectname$.Windows
         {
             Application = app;
             StartupArguments = args;
+            // the config calls the Log method in ApplicationLogger, but the logger
+            // hasn't been initialised yet.......... 
+            TCSConfig.Main = new TCSConfig(TCSConfig.DEFAULT_CONFIG_FILE_NAME);
 
             Main = new MainWindow();
-            Help = new HelpWindow();
-            Preferences = new PreferencesWindow();
-            Logs = new LoggerWindow();
+            Help = new HelpWindow()
+            {
+                Model = Main.Model.Help
+            };
+            Preferences = new PreferencesWindow()
+            {
+                Model = Main.Model.Preferences
+            };
+            Logs = new LoggerWindow()
+            {
+                Model = Main.Model.Logs
+            };
+            ApplicationLogger.LogInformation += Logs.Model.Log;
 
-            // stops a memory leak, because next is to replace the window
-            // viewmodels with the MainViewMode ones
-            ApplicationLogger.LogInformation -= Logs.Model.Log;
+            Preferences.Model.ReloadConfig();
 
-            Help.Model = Main.Model.Help;
-            Preferences.Model = Main.Model.Preferences;
-            Logs.Model = Main.Model.Logs;
+            // $safeprojectname$
+
+            // $safeprojectname$
 
             // have to call after the main LoggerViewModel/LoggerWindow is initialised
             // because thats the only thing that hooks the events so far
@@ -71,16 +82,16 @@ namespace $safeprojectname$.Windows
 
         private static void ShutdownWindows()
         {
-
+            Main.Closing -= WindowClosing;
+            Help.Closing -= WindowClosing;
+            Preferences.Closing -= WindowClosing;
         }
 
         public static void ShutdownApplication()
         {
             ShutdownWindows();
 
-            Main.Closing -= WindowClosing;
-            Help.Closing -= WindowClosing;
-            Preferences.Closing -= WindowClosing;
+            Preferences.Model.Config.SaveConfig();
 
             Application.Shutdown();
         }

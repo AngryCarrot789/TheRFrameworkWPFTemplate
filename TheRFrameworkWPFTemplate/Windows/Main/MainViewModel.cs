@@ -23,7 +23,7 @@ namespace $safeprojectname$.Windows.Main
         {
             Help = new HelpViewModel();
             Themes = new ThemesViewModel();
-            Preferences = new PreferencesViewModel();
+            Preferences = new PreferencesViewModel(TCSConfig.Main);
             Logs = new LoggerViewModel();
         }
     }

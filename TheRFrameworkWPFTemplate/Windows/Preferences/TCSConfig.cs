@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using TheRFramework.Utilities.String;
+using $safeprojectname$.Windows.Logger;
 
 namespace $safeprojectname$.Windows.Preferences
 {
@@ -34,6 +35,11 @@ namespace $safeprojectname$.Windows.Preferences
 
         public string ConfigPath { get; set; }
         public bool IsConfigLoaded { get; private set; }
+
+        /// <summary>
+        /// The main application config file
+        /// </summary>
+        public static TCSConfig Main { get; set; }
 
         #region Constructors
 
@@ -66,17 +72,8 @@ namespace $safeprojectname$.Windows.Preferences
 
             if (!Directory.Exists(configDirectory))
             {
-                if (MessageBox.Show(
-                    $"The config directory '{configDirectory}' doesn't exist. Do you want to create it?",
-                    "Create new config folder?",
-                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    Directory.CreateDirectory(configDirectory);
-                }
-                else
-                {
-                    return;
-                }
+                ApplicationLogger.Log("Config", $"'{configDirectory} doesn't exist. Creating...");
+                Directory.CreateDirectory(configDirectory);
             }
 
             string fullPath = Path.Combine(configDirectory, (configNameWithoutExtension + ".yml"));
@@ -88,26 +85,15 @@ namespace $safeprojectname$.Windows.Preferences
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to load config from path: {fullPath}");
+                    ApplicationLogger.Log("Config", $"Failed to load config from path: {fullPath}");
                 }
             }
             else
             {
-                if (MessageBox.Show(
-                    $"The config file '{fullPath}' doesn't exist. Do you want to create one?",
-                    "Create new config?",
-                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    File.Create(fullPath);
-                    ConfigPath = fullPath;
-                }
-                else
-                {
-                    return;
-                }
+                ApplicationLogger.Log("Config", $"'{fullPath} doesn't exist. Creating...");
+                File.WriteAllText(fullPath, " ");
+                ConfigPath = fullPath;
             }
-
-            ConfigPath = "";
         }
 
         /// <summary>
@@ -129,17 +115,7 @@ namespace $safeprojectname$.Windows.Preferences
             string configDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), DEFAULT_CONFIG_DIRECTORY_NAME);
             if (!Directory.Exists(configDirectory))
             {
-                if (MessageBox.Show(
-                    $"The config directory '{configDirectory}' doesn't exist. Do you want to create it?",
-                    "Create new config folder?",
-                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    Directory.CreateDirectory(configDirectory);
-                }
-                else
-                {
-                    return;
-                }
+                Directory.CreateDirectory(configDirectory);
             }
 
             string fullPath = Path.Combine(configDirectory, (configNameWithoutExtension + ".yml"));
@@ -151,26 +127,14 @@ namespace $safeprojectname$.Windows.Preferences
                 }
                 else
                 {
-                    MessageBox.Show($"Failed to load config from path: {fullPath}");
+                    ApplicationLogger.Log("Config", $"Failed to load config from path: {fullPath}");
                 }
             }
             else
             {
-                if (MessageBox.Show(
-                    $"The config file '{fullPath}' doesn't exist. Do you want to create one?",
-                    "Create new config?",
-                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    File.Create(fullPath);
-                    ConfigPath = fullPath;
-                }
-                else
-                {
-                    return;
-                }
+                File.WriteAllText(fullPath, " ");
+                ConfigPath = fullPath;
             }
-
-            ConfigPath = "";
         }
 
         #endregion
@@ -181,7 +145,7 @@ namespace $safeprojectname$.Windows.Preferences
         {
             if (!File.Exists(fullPath))
             {
-                MessageBox.Show("File does not exist");
+                ApplicationLogger.Log("Config", "File does not exist");
                 return false;
             }
 
@@ -189,11 +153,14 @@ namespace $safeprojectname$.Windows.Preferences
             ListValues.Clear();
             IsConfigLoaded = false;
 
+            // YAML parser
             try
             {
-                bool isNextLineAList = false;
+                bool isNextLineList = false;
                 string listName = "";
                 List<string> currentList = new List<string>();
+                ApplicationLogger.Log("Config", $"Loading config from '{ConfigPath}'");
+                ApplicationLogger.Log("Config", "Paring YAML file...");
                 string[] configLines = File.ReadAllLines(fullPath);
                 for (int i = 0; i < configLines.Length; i++)
                 {
@@ -205,7 +172,8 @@ namespace $safeprojectname$.Windows.Preferences
                         continue;
                     }
 
-                    if (isNextLineAList)
+                    // parse lists. cannot parse lists within a list... not yet atleast ;)
+                    if (isNextLineList)
                     {
                         string trimmedListItemStart = line.TrimStart();
                         if (trimmedListItemStart[0] == '-')
@@ -216,14 +184,10 @@ namespace $safeprojectname$.Windows.Preferences
                             // last line
                             if ((i + 1) == configLines.Length)
                             {
-                                if (isNextLineAList)
+                                if (isNextLineList)
                                 {
-                                    isNextLineAList = false;
-                                    try
-                                    {
-                                        ListValues.Add(listName, new List<string>(currentList));
-                                    }
-                                    catch { }
+                                    isNextLineList = false;
+                                    ListValues.Add(listName, new List<string>(currentList));
                                     listName = "";
                                     currentList.Clear();
                                     break;
@@ -234,17 +198,15 @@ namespace $safeprojectname$.Windows.Preferences
                         }
                         else
                         {
-                            try
-                            {
-                                ListValues.Add(listName, new List<string>(currentList));
-                            }
-                            catch { }
+                            ListValues.Add(listName, new List<string>(currentList));
                             listName = "";
                             currentList.Clear();
-                            isNextLineAList = false;
+                            isNextLineList = false;
                         }
                     }
 
+                    // parse fields. "string" and "bool" pairs are treaded the same when loading and saving
+                    // the app however parsed the "true" or "false" to a bool... see TryGetBoolean
                     string trimmedStart = line.TrimStart();
                     string trimmedEnd = line.TrimEnd();
                     string fieldName = trimmedStart.Before(":");
@@ -259,26 +221,23 @@ namespace $safeprojectname$.Windows.Preferences
                     // add the - listValues... idek what could happen but it could break
                     if (fieldValue.IsEmpty())
                     {
-                        isNextLineAList = true;
+                        isNextLineList = true;
                         listName = fieldName;
                     }
                     else
                     {
-                        try
-                        {
-                            StringValues.Add(fieldName, fieldValue);
-                        }
-                        catch { }
+                        StringValues.Add(fieldName, fieldValue);
                     }
                 }
 
+                ApplicationLogger.Log("Config", "Parsed successfully!");
                 ConfigPath = fullPath;
                 IsConfigLoaded = true;
                 return true;
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Failed to load config: {e.Message}");
+                ApplicationLogger.Log("Config", $"Failed to load config: {e.Message}");
                 StringValues.Clear();
                 ListValues.Clear();
                 IsConfigLoaded = false;
@@ -295,12 +254,14 @@ namespace $safeprojectname$.Windows.Preferences
         {
             if (!File.Exists(ConfigPath))
             {
-                MessageBox.Show("Config file doesn't exist");
+                ApplicationLogger.Log("Config", $"{ConfigPath} doesn't exist");
                 return false;
             }
 
             // wont save the comments because it just wont... sry lol
-            List<string> configLines = new List<string>();
+            // initialising the "lines" with the number of strings + the number of lists and the 
+            // assumed maximum amount of items every list has; 4
+            List<string> configLines = new List<string>(StringValues.Count + (ListValues.Count * 4));
             foreach(KeyValuePair<string, string> pair in StringValues)
             {
                 configLines.Add($"{pair.Key}: {pair.Value}");
@@ -334,6 +295,7 @@ namespace $safeprojectname$.Windows.Preferences
         /// <returns>Whether the field was successfuly found</returns>
         public bool TryGetString(string fieldName, out string fieldValue)
         {
+            // could shrink this down 6 lines, but this is more readable imo :)
             if (StringValues.TryGetValue(fieldName, out string value))
             {
                 fieldValue = value;
@@ -344,6 +306,27 @@ namespace $safeprojectname$.Windows.Preferences
                 fieldValue = null;
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Very similar to <see cref="TryGetString(string, out string)"/> except it will try to parse its outpas as an enum value
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="fieldName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool TryGetEnum<TEnum>(string fieldName, out TEnum value) where TEnum : struct
+        {
+            value = default(TEnum);
+            if (TryGetString(fieldName, out string stringValue))
+            {
+                if (Enum.TryParse(stringValue, true, out TEnum enumValue))
+                {
+                    value = enumValue;
+                    return true;
+                }
+            }
+            return false;
         }
 
         // these others do the exact same as above, but the list is sort of similar
@@ -391,6 +374,12 @@ namespace $safeprojectname$.Windows.Preferences
             }
         }
 
+        /// <summary>
+        /// Returns a reference of items within the specific list
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="listValues"></param>
+        /// <returns></returns>
         public bool TryGetList(string fieldName, out List<string> listValues)
         {
             if (ListValues.TryGetValue(fieldName, out List<string> values))
@@ -405,6 +394,12 @@ namespace $safeprojectname$.Windows.Preferences
             }
         }
 
+        /// <summary>
+        /// Returns the same as <see cref="TryGetList(string, out List{string})"/> but outputs a copy of the list, no references.
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="listValues"></param>
+        /// <returns></returns>
         public bool TryGetListCopy(string fieldName, out List<string> listValues)
         {
             if (TryGetList(fieldName, out List<string> values))
@@ -441,6 +436,25 @@ namespace $safeprojectname$.Windows.Preferences
             }
         }
 
+        /// <summary>
+        /// The exact same a <see cref="SetString(string, string, bool)"/> except it uses enums making it easier to use 
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="fieldName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public void SetEnum<TEnum>(string fieldName, TEnum enumValue, bool addIfNotFound = true) where TEnum : struct
+        {
+            if (TryGetString(fieldName, out string unused))
+            {
+                StringValues[fieldName] = enumValue.ToString();
+            }
+            else if (addIfNotFound)
+            {
+                StringValues.Add(fieldName, enumValue.ToString());
+            }
+        }
+
         public void SetInteger(string fieldName, int fieldValue, bool addIfNotFound = true)
         {
             SetString(fieldName, fieldValue.ToString(), addIfNotFound);
@@ -451,6 +465,13 @@ namespace $safeprojectname$.Windows.Preferences
             SetString(fieldName, fieldValue.ToString(), addIfNotFound);
         }
 
+        /// <summary>
+        /// Sets the <paramref name="fieldName"/> list's values list as 
+        /// <paramref name="fieldValues"/>, meaning they're referenced
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="fieldValues"></param>
+        /// <param name="addIfNotFound"></param>
         public void SetList(string fieldName, List<string> fieldValues, bool addIfNotFound = true)
         {
             if (ListValues.TryGetValue(fieldName, out List<string> unused))
@@ -463,6 +484,13 @@ namespace $safeprojectname$.Windows.Preferences
             }
         }
 
+        /// <summary>
+        /// Does the same as <see cref="SetList(string, List{string}, bool)"/> except it sets the 
+        /// list as a copy, meaning <paramref name="fieldValues"/> isn't referenced
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="fieldValues"></param>
+        /// <param name="addIfNotFound"></param>
         public void SetListCopy(string fieldName, List<string> fieldValues, bool addIfNotFound = true)
         {
             SetList(fieldName, new List<string>(fieldValues), addIfNotFound);

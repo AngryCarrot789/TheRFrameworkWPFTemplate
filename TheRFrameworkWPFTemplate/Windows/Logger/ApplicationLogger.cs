@@ -22,9 +22,9 @@ namespace $safeprojectname$.Windows.Logger
             LogInformation?.Invoke(DateTime.Now, head, description);
         }
 
-        public static void Log(string description)
+        public static void Log(string generalErrorDescription)
         {
-            LogInformation?.Invoke(DateTime.Now, "General Error", description);
+            LogInformation?.Invoke(DateTime.Now, "General Error", generalErrorDescription);
         }
     }
 }

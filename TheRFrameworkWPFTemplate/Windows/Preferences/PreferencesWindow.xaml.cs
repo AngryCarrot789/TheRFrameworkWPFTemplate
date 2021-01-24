@@ -20,7 +20,11 @@ namespace $safeprojectname$.Windows.Preferences
     /// </summary>
     public partial class PreferencesWindow : Window, BaseView<PreferencesViewModel>
     {
-        public PreferencesViewModel Model { get => DataContext as PreferencesViewModel; set => DataContext = value; }
+        public PreferencesViewModel Model
+        {
+            get => DataContext as PreferencesViewModel; 
+            set => DataContext = value;
+        }
 
         public PreferencesWindow()
         {

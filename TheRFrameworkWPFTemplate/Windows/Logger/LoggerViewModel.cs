@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using TheRFramework.Utilities;
 
 namespace $safeprojectname$.Windows.Logger
@@ -15,7 +16,6 @@ namespace $safeprojectname$.Windows.Logger
 
         public ObservableCollection<LoggedItemViewModel> Logged { get; set; }
 
-
         public Command ClearItemsCommand { get; }
         public Command ShowViewCommand { get; }
 
@@ -23,17 +23,8 @@ namespace $safeprojectname$.Windows.Logger
         {
             Logged = new ObservableCollection<LoggedItemViewModel>();
 
-            ClearItemsCommand = new Command(ClearItems);
+            ClearItemsCommand = new Command(ClearLogs);
             ShowViewCommand = new Command(WindowManager.ShowLogger);
-
-            // optional, but hook into the main application logger
-            // and display it here
-            ApplicationLogger.LogInformation += Logger_LogInformation;
-        }
-
-        private void Logger_LogInformation(DateTime date, string header, string description)
-        {
-            Log(date, header, description);
         }
 
         public void Log(DateTime date, string head, string description)
@@ -47,7 +38,7 @@ namespace $safeprojectname$.Windows.Logger
             Logged.Add(logged);
         }
 
-        public void ClearItems()
+        public void ClearLogs()
         {
             Logged.Clear();
         }

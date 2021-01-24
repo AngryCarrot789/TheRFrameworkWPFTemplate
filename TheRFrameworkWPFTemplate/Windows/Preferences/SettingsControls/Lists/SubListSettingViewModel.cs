@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TheRFramework.Utilities;
 
-namespace $safeprojectname$.Windows.Preferences.SettingsControls
+namespace $safeprojectname$.Windows.Preferences.SettingsControls.Lists
 {
     public class SubListSettingViewModel : BaseViewModel
     {
@@ -15,6 +15,12 @@ namespace $safeprojectname$.Windows.Preferences.SettingsControls
         {
             get => _strValue;
             set => RaisePropertyChanged(ref _strValue, value);
+        }
+
+        public SubListSettingViewModel() { }
+        public SubListSettingViewModel(string value)
+        {
+            StringValue = value;
         }
     }
 }

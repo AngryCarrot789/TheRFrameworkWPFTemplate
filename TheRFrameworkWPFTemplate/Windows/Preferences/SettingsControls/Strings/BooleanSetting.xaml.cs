@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TheRFramework.Utilities;
 
-namespace TheRFrameworkWPFTemplate.Windows.Preferences.SettingsControls
+namespace $safeprojectname$.Windows.Preferences.SettingsControls.Strings
 {
     /// <summary>
-    /// Interaction logic for ListSetting.xaml
+    /// Interaction logic for BooleanSetting.xaml
     /// </summary>
-    public partial class ListSetting : UserControl
+    public partial class BooleanSetting : UserControl
     {
-        public ListSetting()
+        public BooleanSetting()
         {
             InitializeComponent();
         }

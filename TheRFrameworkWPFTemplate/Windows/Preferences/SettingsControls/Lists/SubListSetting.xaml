@@ -1,14 +1,13 @@
-﻿<UserControl x:Class="$safeprojectname$.Windows.Preferences.SettingsControls.SubListSetting"
+﻿<UserControl x:Class="$safeprojectname$.Windows.Preferences.SettingsControls.Lists.SubListSetting"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:$safeprojectname$.Windows.Preferences.SettingsControls"
              mc:Ignorable="d" 
              d:DesignHeight="24" d:DesignWidth="400"
              FontSize="14" FontFamily="Consolas">
     <Grid>
         <TextBlock Text="- " HorizontalAlignment="Left" VerticalAlignment="Center" Width="8" Margin="0,4" TextTrimming="None"/>
-        <TextBox Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Padding="0 2 2 2" VerticalContentAlignment="Center" Height="24" Margin="8,0,0,0" BorderBrush="Transparent" Background="Transparent"/>
+        <TextBox Text="{Binding StringValue, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Center" Padding="0 2 2 2" VerticalContentAlignment="Center" Height="24" Margin="8,0,0,0" BorderBrush="Transparent" Background="Transparent"/>
     </Grid>
 </UserControl>

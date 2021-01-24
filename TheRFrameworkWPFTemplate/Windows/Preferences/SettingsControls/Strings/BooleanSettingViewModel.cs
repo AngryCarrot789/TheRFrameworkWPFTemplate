@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TheRFramework.Utilities;
 
-namespace $safeprojectname$.Windows.Preferences.SettingsControls
+namespace $safeprojectname$.Windows.Preferences.SettingsControls.Strings
 {
     public class BooleanSettingViewModel : BaseViewModel
     {
@@ -22,6 +22,13 @@ namespace $safeprojectname$.Windows.Preferences.SettingsControls
         {
             get => _value;
             set => RaisePropertyChanged(ref _value, value);
+        }
+
+        public BooleanSettingViewModel() { }
+        public BooleanSettingViewModel(string field, bool value)
+        {
+            FieldName = field;
+            Value = value;
         }
     }
 }

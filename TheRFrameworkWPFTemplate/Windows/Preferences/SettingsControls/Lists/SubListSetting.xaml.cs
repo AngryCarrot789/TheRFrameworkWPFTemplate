@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TheRFrameworkWPFTemplate.Windows.Preferences.SettingsControls
+namespace $safeprojectname$.Windows.Preferences.SettingsControls.Lists
 {
     /// <summary>
-    /// Interaction logic for StringSetting.xaml
+    /// Interaction logic for SubListSetting.xaml
     /// </summary>
-    public partial class StringSetting : UserControl
+    public partial class SubListSetting : UserControl
     {
-        public StringSetting()
+        public SubListSetting()
         {
             InitializeComponent();
         }

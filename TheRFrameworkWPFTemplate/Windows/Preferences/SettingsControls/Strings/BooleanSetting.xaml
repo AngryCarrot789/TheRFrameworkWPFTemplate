@@ -1,15 +1,14 @@
-﻿<UserControl x:Class="$safeprojectname$.Windows.Preferences.SettingsControls.StringSetting"
+﻿<UserControl x:Class="$safeprojectname$.Windows.Preferences.SettingsControls.Strings.BooleanSetting"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:$safeprojectname$.Windows.Preferences.SettingsControls"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="400"
              FontSize="14" FontFamily="Consolas">
     <StackPanel>
         <TextBlock Text="{Binding FieldName, UpdateSourceTrigger=PropertyChanged}" Padding="4"/>
-        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Padding="2" Background="Transparent" BorderBrush="Transparent" TextWrapping="Wrap"/>
+        <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Content="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Margin="2 0"/>
         <Separator Margin="0 1"/>
     </StackPanel>
 </UserControl>

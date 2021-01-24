@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TheRFramework.Utilities;
 
-namespace TheRFrameworkWPFTemplate.Windows.Logger
+namespace $safeprojectname$.Windows.Logger
 {
     /// <summary>
     /// Interaction logic for LoggerWindow.xaml

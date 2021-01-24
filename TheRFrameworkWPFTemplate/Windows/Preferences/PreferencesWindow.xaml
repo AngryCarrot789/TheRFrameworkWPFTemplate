@@ -4,89 +4,88 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:$safeprojectname$.Windows.Preferences" 
-        xmlns:settingscontrols="clr-namespace:$safeprojectname$.Windows.Preferences.SettingsControls"
+        xmlns:strings="clr-namespace:$safeprojectname$.Windows.Preferences.SettingsControls.Strings" 
+        xmlns:lists="clr-namespace:$safeprojectname$.Windows.Preferences.SettingsControls.Lists"
         mc:Ignorable="d"
         Title="Preferences" 
-        Height="500" Width="900"
+        Height="720" Width="900"
         Style="{DynamicResource CustomToolWindowStyle}">
-    <Window.DataContext>
-        <local:PreferencesViewModel/>
-    </Window.DataContext>
     <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="32"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <GroupBox Header="Values" Grid.RowSpan="2">
-            <Grid>
-                <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding StringSettings, UpdateSourceTrigger=PropertyChanged}"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.CanContentScroll="False"
-                              HorizontalContentAlignment="Stretch"
-                              BorderBrush="Transparent">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <settingscontrols:StringSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Settings" Grid.RowSpan="2" Grid.Column="2">
-            <Grid>
-                <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding BooleanSettings, UpdateSourceTrigger=PropertyChanged}"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.CanContentScroll="False"
-                              HorizontalContentAlignment="Stretch"
-                              BorderBrush="Transparent">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <settingscontrols:BooleanSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Multiple values" Grid.Column="4" Margin="0,0,0,5">
-            <Grid>
-                <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding ListSettings, UpdateSourceTrigger=PropertyChanged}"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.CanContentScroll="False"
-                              HorizontalContentAlignment="Stretch"
-                              BorderBrush="Transparent">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <settingscontrols:ListSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
-        </GroupBox>
+        <ScrollViewer VerticalAlignment="Stretch" Margin="0 0 0 37">
+            <StackPanel Margin="0 0 5 0">
+                <GroupBox Header="Values" MinHeight="200">
+                    <Grid>
+                        <ItemsControl ItemsSource="{Binding StringSettings, UpdateSourceTrigger=PropertyChanged}"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.CanContentScroll="False"
+                                      HorizontalContentAlignment="Stretch"
+                                      BorderBrush="Transparent">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <strings:StringSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Settings" Margin="0 5" MinHeight="200">
+                    <Grid>
+                        <ItemsControl ItemsSource="{Binding BooleanSettings, UpdateSourceTrigger=PropertyChanged}"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.CanContentScroll="False"
+                                      HorizontalContentAlignment="Stretch"
+                                      BorderBrush="Transparent">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <strings:BooleanSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Multiple values" MinHeight="200">
+                    <Grid>
+                        <ItemsControl ItemsSource="{Binding ListSettings, UpdateSourceTrigger=PropertyChanged}"
+                                      ScrollViewer.CanContentScroll="False"
+                                      HorizontalContentAlignment="Stretch"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      BorderBrush="Transparent">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <lists:ListSetting DataContext="{Binding}" HorizontalContentAlignment="Stretch" Padding="2,3"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
 
-        <Grid Grid.Column="4" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding SaveConfigCommand, Mode=OneTime}" Content="Save" />
-            <Button Command="{Binding ReloadConfigCommand, Mode=OneTime}" Content="Reload" Grid.Column="2" />
-            <Button Command="{Binding CloseViewCommand, Mode=OneTime}" Content="Close" Grid.Column="4" />
-        </Grid>
+        <!-- 
+            You have a choice of what you could keep here... e.g. changing the theme in the themes tab (in the main window) 
+            wont update this window, until you press "Reload from RAM" (not "Reload from Disk"). this will clear the values
+            and re-import them from the config stored in ram, not in the file on your drive.
+        
+            there isnt really any reason to keep "Reload from Disk" unless you externally edit the config... for some reason...
+            while the app is running. pretty sure the code should be easier to understand than this writing here xdx :)
+        
+            basically if you just want to "reimport" the values from the config in ram into the view, save then close:
+            click "Reload from RAM" then "Save and Close"
+        
+            if you dont care about if the app (in the background) has edited the config in memory (e.g. changing the theme) and want
+            and want to reload from disk... click "Reload from Disk"
+        
+            and if you dont want to save/load just click close.
+            clicking save will take the values in this view, put them into the config in ram and then save the config file.
+            meaning, if the app changed anything in the background it wont be saved, unless you editied it in this view
+        -->
+        <Button Command="{Binding CloseViewCommand, Mode=OneTime}" CommandParameter="t" Content="Save and Close" Margin="0,0,500,0" HorizontalAlignment="Right" Width="120" ToolTip="Saves the values above to the config file and closes the window" Height="32" VerticalAlignment="Bottom"/>
+        <Button Command="{Binding SaveConfigCommand, Mode=OneTime}" Content="Save values to Disk" Margin="0,0,355,0" ToolTip="Saves the values above to the config file" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="140" />
+        <Button Command="{Binding ReloadConfigCommand, Mode=OneTime}" CommandParameter="r" Content="Reload from RAM" Margin="0,0,230,0" HorizontalAlignment="Right" Width="120" ToolTip="Reloads the values above from the config file in RAM (not on your disk) (useful if you change the theme, this will update accordingly)" Height="32" VerticalAlignment="Bottom" />
+        <Button Command="{Binding ReloadConfigCommand, Mode=OneTime}" CommandParameter="d" Content="Reload from Disk" Margin="0,0,105,0" HorizontalAlignment="Right" Width="120" ToolTip="Reloads the config file from your computer (wherever the config is located) and updates the values above" Height="32" VerticalAlignment="Bottom" />
+        <Button Command="{Binding CloseViewCommand, Mode=OneTime}" CommandParameter="f" Content="Close" HorizontalAlignment="Right" Width="100" ToolTip="Closes the window. doesn't save/reload or do anything to the config or the values above" Height="32" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

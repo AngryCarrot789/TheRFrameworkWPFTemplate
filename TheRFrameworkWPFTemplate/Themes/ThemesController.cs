@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using $safeprojectname$.Windows.Logger;
+using $safeprojectname$.Windows.Preferences;
 
 namespace TheRFramework
 {
@@ -30,6 +31,7 @@ namespace TheRFramework
         {
             string themeName = null;
             CurrentTheme = theme;
+            TCSConfig.Main.SetEnum("theme", theme);
             switch (theme)
             {
                 case ThemeTypes.Dark: 

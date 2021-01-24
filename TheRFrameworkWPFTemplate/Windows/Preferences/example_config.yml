@@ -1,6 +1,6 @@
 ﻿# THIS CONFIG FILE WONT LOAD BY DEFAULT IT'S JUST AN EXAMPLE lol
-# The fields should be used as the description of the property/setting.
-# just make sure not to use more than 2 colons because thats how the
+# The field names should be used as the description of the property/setting.
+# just make sure not to use more than 1 colon because thats how the
 # field and value are separated. the YAML parser isn't very clever; 
 # its fairly basic lol
 # btw all these comments will be removed once you save the

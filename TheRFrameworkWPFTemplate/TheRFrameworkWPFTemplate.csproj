@@ -72,22 +72,22 @@
     <Compile Include="Windows\Preferences\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Preferences\SettingsControls\BooleanSetting.xaml.cs">
+    <Compile Include="Windows\Preferences\SettingsControls\Strings\BooleanSetting.xaml.cs">
       <DependentUpon>BooleanSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Preferences\SettingsControls\BooleanSettingViewModel.cs" />
-    <Compile Include="Windows\Preferences\SettingsControls\ListSetting.xaml.cs">
+    <Compile Include="Windows\Preferences\SettingsControls\Strings\BooleanSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\Lists\ListSetting.xaml.cs">
       <DependentUpon>ListSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Preferences\SettingsControls\ListSettingViewModel.cs" />
-    <Compile Include="Windows\Preferences\SettingsControls\StringSetting.xaml.cs">
+    <Compile Include="Windows\Preferences\SettingsControls\Lists\ListSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\Strings\StringSetting.xaml.cs">
       <DependentUpon>StringSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Preferences\SettingsControls\StringSettingViewModel.cs" />
-    <Compile Include="Windows\Preferences\SettingsControls\SubListSetting.xaml.cs">
+    <Compile Include="Windows\Preferences\SettingsControls\Strings\StringSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\Lists\SubListSetting.xaml.cs">
       <DependentUpon>SubListSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Preferences\SettingsControls\SubListSettingViewModel.cs" />
+    <Compile Include="Windows\Preferences\SettingsControls\Lists\SubListSettingViewModel.cs" />
     <Compile Include="Windows\Preferences\TCSConfig.cs" />
     <Compile Include="Windows\ThemesViewModel.cs" />
     <Compile Include="Windows\WindowManager.cs" />
@@ -155,19 +155,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Preferences\SettingsControls\BooleanSetting.xaml">
+    <Page Include="Windows\Preferences\SettingsControls\Strings\BooleanSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Preferences\SettingsControls\ListSetting.xaml">
+    <Page Include="Windows\Preferences\SettingsControls\Lists\ListSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Preferences\SettingsControls\StringSetting.xaml">
+    <Page Include="Windows\Preferences\SettingsControls\Strings\StringSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Preferences\SettingsControls\SubListSetting.xaml">
+    <Page Include="Windows\Preferences\SettingsControls\Lists\SubListSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
